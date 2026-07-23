@@ -12,6 +12,9 @@ from detection.threat_detector import detect_brute_force
 from ai_agent.classifier import classify_threats
 from ai_agent.analyzer import analyze_threats
 from utils.logger import log_info
+from ai_agent.orchestrator import run_ai_pipeline
+
+logs, threats, analysis = run_ai_pipeline()
 
 
 def main():
