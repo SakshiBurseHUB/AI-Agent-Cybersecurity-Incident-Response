@@ -82,7 +82,32 @@ def main():
             for action in response["Actions"]:
                 print(f"  • {action}")
 
+            # -------------------------------------------------
+            # SOC Playbook
+            # -------------------------------------------------
+            playbook = response["Playbook"]
+
+            print("\nSOC Playbook")
+            print("-----------------------------------------------")
+            print(f"Playbook ID : {playbook['Playbook']}")
+            print(f"Title       : {playbook['Title']}")
+
+            print("\nContainment")
+            for step in playbook["Containment"]:
+                print(f"  • {step}")
+
+            print("\nInvestigation")
+            for step in playbook["Investigation"]:
+                print(f"  • {step}")
+
+            print("\nRecovery")
+            for step in playbook["Recovery"]:
+                print(f"  • {step}")
+
         print("\n===============================================")
+
+    else:
+        print("\nNo incident responses generated.")
 
     log_info("Application finished successfully.")
 

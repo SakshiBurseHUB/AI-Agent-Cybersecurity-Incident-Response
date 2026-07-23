@@ -13,6 +13,7 @@ Project: AI Agent for Cybersecurity Incident Response
 """
 
 from utils.logger import log_info
+from automation.playbooks import get_playbook
 
 
 def generate_response(analysis):
@@ -44,6 +45,7 @@ def generate_response(analysis):
             ]
 
             response_time = "Immediately"
+            playbook = get_playbook(incident["Attack"])
 
         elif severity == "Medium":
 
@@ -65,13 +67,14 @@ def generate_response(analysis):
             response_time = "Normal"
 
         responses.append({
-            "Attack": incident["Attack"],
-            "Source_IP": incident["Source_IP"],
-            "Severity": severity,
-            "Priority": incident["Priority"],
-            "Response_Time": response_time,
-            "Actions": actions
-        })
+    "Attack": incident["Attack"],
+    "Source_IP": incident["Source_IP"],
+    "Severity": severity,
+    "Priority": incident["Priority"],
+    "Response_Time": response_time,
+    "Actions": actions,
+    "Playbook": playbook
+})
 
     log_info(f"Generated {len(responses)} response plans.")
 
