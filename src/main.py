@@ -7,56 +7,35 @@ Author: Sakshi Burse
 Project: AI Agent for Cybersecurity Incident Response
 """
 
-from collectors.log_collector import collect_all_logs
-from detection.threat_detector import detect_brute_force
-from ai_agent.classifier import classify_threats
-from ai_agent.analyzer import analyze_threats
-from utils.logger import log_info
 from ai_agent.orchestrator import run_ai_pipeline
-
-logs, threats, analysis = run_ai_pipeline()
+from utils.logger import log_info
 
 
 def main():
-    """Main application workflow."""
+    """Start the AI Incident Response application."""
 
-    log_info("Starting AI Agent for Cybersecurity Incident Response...")
+    log_info("Launching AI Agent...")
 
-    # ------------------------------------------------------------
-    # Step 1: Collect Logs
-    # ------------------------------------------------------------
-    logs = collect_all_logs()
+    # ---------------------------------------------------------
+    # Execute Complete AI Pipeline
+    # ---------------------------------------------------------
+    logs, threats, analysis, responses = run_ai_pipeline()
 
     if not logs:
-        print("\nNo logs were collected.")
+        print("\nNo logs found.")
         return
 
-    # ------------------------------------------------------------
-    # Step 2: Detect Threats
-    # ------------------------------------------------------------
-    threats = detect_brute_force(logs)
-
-    # ------------------------------------------------------------
-    # Step 3: Classify Threats
-    # ------------------------------------------------------------
-    classified_threats = classify_threats(threats)
-
-    # ------------------------------------------------------------
-    # Step 4: Analyze Threats
-    # ------------------------------------------------------------
-    analysis = analyze_threats(classified_threats)
-
-    # ------------------------------------------------------------
-    # Step 5: Detection Summary
-    # ------------------------------------------------------------
+    # ---------------------------------------------------------
+    # Detection Summary
+    # ---------------------------------------------------------
     print("\n========== AI Detection Summary ==========")
     print(f"Total Logs Loaded : {len(logs)}")
-    print(f"Threats Detected  : {len(classified_threats)}")
+    print(f"Threats Detected  : {len(threats)}")
     print("==========================================")
 
-    # ------------------------------------------------------------
-    # Step 6: AI Analysis Report
-    # ------------------------------------------------------------
+    # ---------------------------------------------------------
+    # AI Analysis Report
+    # ---------------------------------------------------------
     if analysis:
 
         print("\n============== AI Analysis Report ==============")
@@ -79,9 +58,33 @@ def main():
         print("\n===============================================")
 
     else:
-        print("\nNo threats detected. System appears secure.")
+        print("\nNo threats detected.")
 
-    log_info("AI Agent execution completed.")
+    # ---------------------------------------------------------
+    # Incident Response
+    # ---------------------------------------------------------
+    if responses:
+
+        print("\n============== Incident Response ==============")
+
+        for index, response in enumerate(responses, start=1):
+
+            print(f"\nIncident #{index}")
+            print("-----------------------------------------------")
+            print(f"Attack Type     : {response['Attack']}")
+            print(f"Source IP       : {response['Source_IP']}")
+            print(f"Severity        : {response['Severity']}")
+            print(f"Priority        : {response['Priority']}")
+            print(f"Response Time   : {response['Response_Time']}")
+
+            print("\nRecommended Actions:")
+
+            for action in response["Actions"]:
+                print(f"  • {action}")
+
+        print("\n===============================================")
+
+    log_info("Application finished successfully.")
 
 
 if __name__ == "__main__":
