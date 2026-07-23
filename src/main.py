@@ -9,14 +9,13 @@ Project: AI Agent for Cybersecurity Incident Response
 
 from collectors.log_collector import collect_all_logs
 from detection.threat_detector import detect_brute_force
+from ai_agent.classifier import classify_threats
 from ai_agent.analyzer import analyze_threats
 from utils.logger import log_info
 
 
 def main():
-    """
-    Main application workflow.
-    """
+    """Main application workflow."""
 
     log_info("Starting AI Agent for Cybersecurity Incident Response...")
 
@@ -35,20 +34,25 @@ def main():
     threats = detect_brute_force(logs)
 
     # ------------------------------------------------------------
-    # Step 3: AI Analysis
+    # Step 3: Classify Threats
     # ------------------------------------------------------------
-    analysis = analyze_threats(threats)
+    classified_threats = classify_threats(threats)
 
     # ------------------------------------------------------------
-    # Step 4: Detection Summary
+    # Step 4: Analyze Threats
+    # ------------------------------------------------------------
+    analysis = analyze_threats(classified_threats)
+
+    # ------------------------------------------------------------
+    # Step 5: Detection Summary
     # ------------------------------------------------------------
     print("\n========== AI Detection Summary ==========")
     print(f"Total Logs Loaded : {len(logs)}")
-    print(f"Threats Detected  : {len(threats)}")
+    print(f"Threats Detected  : {len(classified_threats)}")
     print("==========================================")
 
     # ------------------------------------------------------------
-    # Step 5: AI Analysis Report
+    # Step 6: AI Analysis Report
     # ------------------------------------------------------------
     if analysis:
 
@@ -59,6 +63,9 @@ def main():
             print(f"\nThreat #{index}")
             print("-----------------------------------------------")
             print(f"Attack Type     : {item['Attack']}")
+            print(f"Category        : {item['Category']}")
+            print(f"MITRE ATT&CK ID : {item['MITRE_ID']}")
+            print(f"MITRE Technique : {item['MITRE_Name']}")
             print(f"Source IP       : {item['Source_IP']}")
             print(f"Severity        : {item['Severity']}")
             print(f"Risk Score      : {item['Risk_Score']}/100")

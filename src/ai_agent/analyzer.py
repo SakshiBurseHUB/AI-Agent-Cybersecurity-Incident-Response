@@ -49,18 +49,21 @@ def analyze_threats(threats):
             priority = "Normal"
 
         analysis = {
-            "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "Attack": attack,
-            "Source_IP": ip,
-            "Severity": severity,
-            "Risk_Score": risk_score,
-            "Priority": priority,
-            "Summary": (
-                f"Detected a {attack} attack from {ip}. "
-                f"Risk Score: {risk_score}/100."
-            ),
-            "Recommendation": threat["Recommendation"]
-        }
+    "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    "Attack": attack,
+    "Category": threat["Category"],
+    "MITRE_ID": threat["MITRE_ID"],
+    "MITRE_Name": threat["MITRE_Name"],
+    "Source_IP": ip,
+    "Severity": severity,
+    "Risk_Score": risk_score,
+    "Priority": priority,
+    "Summary": (
+        f"Detected a {attack} attack from {ip}. "
+        f"Risk Score: {risk_score}/100."
+    ),
+    "Recommendation": threat["Recommendation"]
+}
 
         analysis_results.append(analysis)
 
