@@ -228,3 +228,39 @@ main{
         width:100%;
     }
 }
+
+/* ===========================
+   Dashboard Card Header
+=========================== */
+
+.card-header{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:none;
+    border:none;
+    padding:0;
+    margin-bottom:20px;
+}
+
+.card-header i{
+
+    font-size:28px;
+    color:#2563EB;
+}
+
+.card-header h6{
+
+    margin:0;
+}
+
+/* ===========================
+   Bootstrap Badge
+=========================== */
+
+.badge{
+
+    padding:8px 14px;
+    font-size:14px;
+}

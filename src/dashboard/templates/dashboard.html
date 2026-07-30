@@ -10,35 +10,83 @@ Dashboard
 
     <h2 class="page-title">Dashboard</h2>
 
-    <!-- Statistics Cards -->
+    <!-- Dashboard Statistics -->
     <div class="row g-4 mt-2">
 
+        <!-- Total Incidents -->
         <div class="col-lg-3 col-md-6">
+
             <div class="dashboard-card">
-                <h6>Total Incidents</h6>
+
+                <div class="card-header">
+
+                    <i class="bi bi-shield-check"></i>
+
+                    <h6>Total Incidents</h6>
+
+                </div>
+
                 <h2>{{ stats.total_incidents }}</h2>
+
             </div>
+
         </div>
 
+        <!-- Open Incidents -->
         <div class="col-lg-3 col-md-6">
+
             <div class="dashboard-card">
-                <h6>Open Incidents</h6>
+
+                <div class="card-header">
+
+                    <i class="bi bi-exclamation-circle"></i>
+
+                    <h6>Open Incidents</h6>
+
+                </div>
+
                 <h2>{{ stats.open_incidents }}</h2>
+
             </div>
+
         </div>
 
+        <!-- High Severity -->
         <div class="col-lg-3 col-md-6">
+
             <div class="dashboard-card">
-                <h6>High Severity</h6>
+
+                <div class="card-header">
+
+                    <i class="bi bi-fire"></i>
+
+                    <h6>High Severity</h6>
+
+                </div>
+
                 <h2>{{ stats.high_severity }}</h2>
+
             </div>
+
         </div>
 
+        <!-- Critical Risk -->
         <div class="col-lg-3 col-md-6">
+
             <div class="dashboard-card">
-                <h6>Critical Risk</h6>
+
+                <div class="card-header">
+
+                    <i class="bi bi-graph-up-arrow"></i>
+
+                    <h6>Critical Risk</h6>
+
+                </div>
+
                 <h2>{{ stats.critical_risk }}</h2>
+
             </div>
+
         </div>
 
     </div>
@@ -46,13 +94,14 @@ Dashboard
     <!-- Recent Incidents -->
     <div class="table-section mt-5">
 
-        <h4>Recent Incidents</h4>
+        <h4 class="mb-4">Recent Incidents</h4>
 
         <table class="table table-hover align-middle">
 
             <thead>
 
                 <tr>
+
                     <th>ID</th>
                     <th>Attack</th>
                     <th>Source IP</th>
@@ -60,27 +109,102 @@ Dashboard
                     <th>Priority</th>
                     <th>Risk Score</th>
                     <th>Status</th>
+
                 </tr>
 
             </thead>
 
             <tbody>
 
-                {% for incident in incidents %}
+                {% if incidents %}
 
-                <tr>
+                    {% for incident in incidents %}
 
-                    <td>{{ incident[0] }}</td>
-                    <td>{{ incident[1] }}</td>
-                    <td>{{ incident[2] }}</td>
-                    <td>{{ incident[3] }}</td>
-                    <td>{{ incident[4] }}</td>
-                    <td>{{ incident[5] }}</td>
-                    <td>{{ incident[7] }}</td>
+                    <tr>
 
-                </tr>
+                        <td>{{ incident[0] }}</td>
 
-                {% endfor %}
+                        <td>{{ incident[1] }}</td>
+
+                        <td>{{ incident[2] }}</td>
+
+                        <!-- Severity Badge -->
+                        <td>
+
+                            {% if incident[3] == "High" %}
+
+                                <span class="badge bg-danger">
+                                    High
+                                </span>
+
+                            {% elif incident[3] == "Medium" %}
+
+                                <span class="badge bg-warning text-dark">
+                                    Medium
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-success">
+                                    Low
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>{{ incident[4] }}</td>
+
+                        <td>{{ incident[5] }}</td>
+
+                        <!-- Status Badge -->
+                        <td>
+
+                            {% if incident[7] == "Open" %}
+
+                                <span class="badge bg-primary">
+                                    Open
+                                </span>
+
+                            {% elif incident[7] == "In Progress" %}
+
+                                <span class="badge bg-warning text-dark">
+                                    In Progress
+                                </span>
+
+                            {% elif incident[7] == "Resolved" %}
+
+                                <span class="badge bg-success">
+                                    Resolved
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-secondary">
+                                    {{ incident[7] }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="7" class="text-center">
+
+                            No incidents available.
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
 
             </tbody>
 
