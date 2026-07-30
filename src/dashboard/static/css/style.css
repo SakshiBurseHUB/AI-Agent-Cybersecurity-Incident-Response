@@ -264,3 +264,42 @@ main{
     padding:8px 14px;
     font-size:14px;
 }
+
+/* ===========================
+   User Profile
+=========================== */
+
+.user-profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.clock{
+
+    font-weight:bold;
+
+    color:#2563EB;
+
+    font-size:16px;
+
+    min-width:120px;
+}
+
+.topbar small{
+
+    color:#64748B;
+}
+
+.user-profile strong{
+
+    font-size:15px;
+}
+
+.user-profile small{
+
+    color:#64748B;
+}

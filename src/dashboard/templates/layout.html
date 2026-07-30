@@ -99,22 +99,52 @@
 
         <nav class="topbar">
 
-            <h4>Security Operations Center</h4>
+    <div>
 
-            <div class="topbar-right">
+        <h4>Security Operations Center</h4>
 
-                <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search incidents...">
+        <small id="currentDate"></small>
 
-                <i class="bi bi-bell fs-4"></i>
+    </div>
 
-                <i class="bi bi-person-circle fs-3"></i>
+    <div class="topbar-right">
+
+        <input
+            type="text"
+            class="form-control"
+            placeholder="Search incidents...">
+
+        <div class="clock">
+
+            <span id="currentTime"></span>
+
+        </div>
+
+        <i class="bi bi-bell fs-4"></i>
+
+        <div class="user-profile">
+
+            <i class="bi bi-person-circle fs-2"></i>
+
+            <div>
+
+                <strong>SOC Analyst</strong><br>
+
+                <small>Administrator</small>
 
             </div>
 
-        </nav>
+        </div>
+
+        <button class="btn btn-outline-danger">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</nav>
 
         <main>
 

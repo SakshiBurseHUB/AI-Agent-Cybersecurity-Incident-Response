@@ -85,3 +85,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+// -----------------------------
+// Live Clock
+// -----------------------------
+
+function updateClock() {
+
+    const now = new Date();
+
+    document.getElementById("currentTime").innerHTML =
+        now.toLocaleTimeString();
+
+    document.getElementById("currentDate").innerHTML =
+        now.toDateString();
+
+}
+
+updateClock();
+
+setInterval(updateClock, 1000);
