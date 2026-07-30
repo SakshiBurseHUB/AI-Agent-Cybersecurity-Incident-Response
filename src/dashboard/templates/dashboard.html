@@ -6,28 +6,86 @@ Dashboard
 
 {% block content %}
 
-<h2>Dashboard Overview</h2>
+<div class="container-fluid">
 
-<div class="cards">
+    <h2 class="page-title">Dashboard</h2>
 
-    <div class="card">
-        <h3>Total Incidents</h3>
-        <p>{{ stats.total_incidents }}</p>
+    <!-- Statistics Cards -->
+    <div class="row g-4 mt-2">
+
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card">
+                <h6>Total Incidents</h6>
+                <h2>{{ stats.total_incidents }}</h2>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card">
+                <h6>Open Incidents</h6>
+                <h2>{{ stats.open_incidents }}</h2>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card">
+                <h6>High Severity</h6>
+                <h2>{{ stats.high_severity }}</h2>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card">
+                <h6>Critical Risk</h6>
+                <h2>{{ stats.critical_risk }}</h2>
+            </div>
+        </div>
+
     </div>
 
-    <div class="card">
-        <h3>Open Incidents</h3>
-        <p>{{ stats.open_incidents }}</p>
-    </div>
+    <!-- Recent Incidents -->
+    <div class="table-section mt-5">
 
-    <div class="card">
-        <h3>High Severity</h3>
-        <p>{{ stats.high_severity }}</p>
-    </div>
+        <h4>Recent Incidents</h4>
 
-    <div class="card">
-        <h3>Critical Risk</h3>
-        <p>{{ stats.critical_risk }}</p>
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Attack</th>
+                    <th>Source IP</th>
+                    <th>Severity</th>
+                    <th>Priority</th>
+                    <th>Risk Score</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for incident in incidents %}
+
+                <tr>
+
+                    <td>{{ incident[0] }}</td>
+                    <td>{{ incident[1] }}</td>
+                    <td>{{ incident[2] }}</td>
+                    <td>{{ incident[3] }}</td>
+                    <td>{{ incident[4] }}</td>
+                    <td>{{ incident[5] }}</td>
+                    <td>{{ incident[7] }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
     </div>
 
 </div>
