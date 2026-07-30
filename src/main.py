@@ -1,20 +1,17 @@
-"""
-main.py
-
-Entry point for the AI Agent for Cybersecurity Incident Response.
-
-Author: Sakshi Burse
-Project: AI Agent for Cybersecurity Incident Response
-"""
-
 from ai_agent.orchestrator import run_ai_pipeline
 from utils.logger import log_info
+from database.database import create_tables
 
 
 def main():
     """Start the AI Incident Response application."""
 
     log_info("Launching AI Agent...")
+
+    # ---------------------------------------------------------
+    # Initialize Database
+    # ---------------------------------------------------------
+    create_tables()
 
     # ---------------------------------------------------------
     # Execute Complete AI Pipeline
