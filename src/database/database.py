@@ -1,4 +1,5 @@
 import sqlite3
+from pathlib import Path
 
 from utils.logger import log_info
 
@@ -15,32 +16,21 @@ def get_connection():
 
 def create_tables():
     """
-    Create database tables if they do not exist.
+    Create database tables using schema.sql.
     """
 
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS incidents (
+    # Locate schema.sql
+    schema_path = Path(__file__).parent / "schema.sql"
 
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+    # Read SQL schema
+    with open(schema_path, "r", encoding="utf-8") as file:
+        schema = file.read()
 
-        attack TEXT,
-
-        source_ip TEXT,
-
-        severity TEXT,
-
-        priority TEXT,
-
-        risk_score INTEGER,
-
-        recommendation TEXT,
-
-        status TEXT
-    )
-    """)
+    # Execute SQL script
+    cursor.executescript(schema)
 
     conn.commit()
     conn.close()
