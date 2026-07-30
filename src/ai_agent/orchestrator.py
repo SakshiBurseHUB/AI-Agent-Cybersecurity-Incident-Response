@@ -5,6 +5,7 @@ from ai_agent.analyzer import analyze_threats
 from ai_agent.responder import generate_response
 from automation.response_actions import execute_response_actions
 from utils.logger import log_info
+from automation.notifier import notify_soc_team
 
 
 def run_ai_pipeline():
@@ -45,15 +46,17 @@ def run_ai_pipeline():
 
     # Step 6: Execute Response Actions
     execution_results = execute_response_actions(responses)
+    notifications = notify_soc_team(responses)
 
     log_info("========================================")
     log_info("AI Pipeline Completed Successfully")
     log_info("========================================")
 
     return (
-        logs,
-        classified_threats,
-        analysis,
-        responses,
-        execution_results
-    )
+    logs,
+    classified_threats,
+    analysis,
+    responses,
+    execution_results,
+    notifications
+)

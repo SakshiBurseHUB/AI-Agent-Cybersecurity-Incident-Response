@@ -1,3 +1,12 @@
+"""
+main.py
+
+Entry point for the AI Agent for Cybersecurity Incident Response.
+
+Author: Sakshi Burse
+Project: AI Agent for Cybersecurity Incident Response
+"""
+
 from ai_agent.orchestrator import run_ai_pipeline
 from utils.logger import log_info
 
@@ -10,7 +19,14 @@ def main():
     # ---------------------------------------------------------
     # Execute Complete AI Pipeline
     # ---------------------------------------------------------
-    logs, threats, analysis, responses, execution_results = run_ai_pipeline()
+    (
+        logs,
+        threats,
+        analysis,
+        responses,
+        execution_results,
+        notifications
+    ) = run_ai_pipeline()
 
     if not logs:
         print("\nNo logs found.")
@@ -111,6 +127,17 @@ def main():
             print("\nRecovery")
             for step in playbook["Recovery"]:
                 print(f"  • {step}")
+
+            # -------------------------------------------------
+            # SOC Notification
+            # -------------------------------------------------
+            notification = notifications[index - 1]
+
+            print("\nSOC Notification")
+            print("-----------------------------------------------")
+            print(f"Recipient : {notification['Recipient']}")
+            print(f"Channel   : {notification['Channel']}")
+            print(f"Status    : {notification['Status']}")
 
             print("\n===============================================")
 
