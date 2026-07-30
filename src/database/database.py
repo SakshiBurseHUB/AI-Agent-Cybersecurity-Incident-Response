@@ -111,6 +111,47 @@ def get_all_incidents():
 
     return incidents
 
+def get_attack_statistics():
+    """
+    Return number of incidents grouped by attack type.
+    """
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT attack, COUNT(*)
+        FROM incidents
+        GROUP BY attack
+    """)
+
+    data = cursor.fetchall()
+
+    conn.close()
+
+    return data
+
+
+def get_severity_statistics():
+    """
+    Return number of incidents grouped by severity.
+    """
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT severity, COUNT(*)
+        FROM incidents
+        GROUP BY severity
+    """)
+
+    data = cursor.fetchall()
+
+    conn.close()
+
+    return data
+
 def get_dashboard_statistics():
     """
     Retrieve dashboard statistics.

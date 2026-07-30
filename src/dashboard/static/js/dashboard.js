@@ -1,26 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Incident Trend
+    // -----------------------------
+    // Severity Chart
+    // -----------------------------
 
-    const incidentCanvas = document.getElementById("incidentChart");
+    const severityCanvas = document.getElementById("incidentChart");
 
-    if (incidentCanvas) {
+    if (severityCanvas) {
 
-        new Chart(incidentCanvas, {
+        const labels = JSON.parse(
+            severityCanvas.dataset.labels
+        );
 
-            type: "line",
+        const values = JSON.parse(
+            severityCanvas.dataset.values
+        );
+
+        new Chart(severityCanvas, {
+
+            type: "bar",
 
             data: {
 
-                labels: [
-                    "Mon",
-                    "Tue",
-                    "Wed",
-                    "Thu",
-                    "Fri",
-                    "Sat",
-                    "Sun"
-                ],
+                labels: labels,
 
                 datasets: [
 
@@ -28,11 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         label: "Incidents",
 
-                        data: [2, 5, 3, 7, 6, 8, 4],
+                        data: values,
 
-                        borderWidth: 3,
-
-                        fill: false
+                        borderWidth: 1
 
                     }
 
@@ -44,11 +44,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    // -----------------------------
     // Attack Distribution
+    // -----------------------------
 
     const attackCanvas = document.getElementById("attackChart");
 
     if (attackCanvas) {
+
+        const labels = JSON.parse(
+            attackCanvas.dataset.labels
+        );
+
+        const values = JSON.parse(
+            attackCanvas.dataset.values
+        );
 
         new Chart(attackCanvas, {
 
@@ -56,20 +66,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             data: {
 
-                labels: [
-
-                    "Brute Force",
-                    "SQL Injection",
-                    "Malware",
-                    "DDoS"
-
-                ],
+                labels: labels,
 
                 datasets: [
 
                     {
 
-                        data: [45, 20, 15, 20]
+                        data: values
 
                     }
 

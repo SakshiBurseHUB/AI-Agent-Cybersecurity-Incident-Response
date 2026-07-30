@@ -15,6 +15,8 @@ from database.database import (
     create_tables,
     get_dashboard_statistics,
     get_all_incidents,
+    get_attack_statistics,
+    get_severity_statistics,
 )
 
 app = Flask(
@@ -34,17 +36,27 @@ create_tables()
 # ---------------------------------------------------------
 @app.route("/")
 def home():
-    """
-    Dashboard Home Page
-    """
 
     stats = get_dashboard_statistics()
+
     incidents = get_all_incidents()
 
+    attack_stats = get_attack_statistics()
+
+    severity_stats = get_severity_statistics()
+
     return render_template(
+
         "dashboard.html",
+
         stats=stats,
+
         incidents=incidents,
+
+        attack_stats=attack_stats,
+
+        severity_stats=severity_stats,
+
     )
 
 

@@ -98,7 +98,11 @@ Dashboard
 
                 <h4 class="mb-3">Incident Trend</h4>
 
-                <canvas id="incidentChart"></canvas>
+               <canvas
+                id="incidentChart"
+                data-labels='{{ severity_stats | map(attribute=0) | list | tojson }}'
+                data-values='{{ severity_stats | map(attribute=1) | list | tojson }}'>
+               </canvas>
 
             </div>
 
@@ -110,7 +114,11 @@ Dashboard
 
                 <h4 class="mb-3">Attack Distribution</h4>
 
-                <canvas id="attackChart"></canvas>
+                <canvas
+                    id="attackChart"
+                    data-labels='{{ attack_stats | map(attribute=0) | list | tojson }}'
+                    data-values='{{ attack_stats | map(attribute=1) | list | tojson }}'>
+                </canvas>
 
             </div>
 
