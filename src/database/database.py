@@ -110,3 +110,92 @@ def get_all_incidents():
     log_info(f"Retrieved {len(incidents)} incidents from database.")
 
     return incidents
+
+def update_status(incident_id, new_status):
+    """
+    Update the status of an incident.
+
+    Args:
+        incident_id (int): Incident ID.
+        new_status (str): New status.
+    """
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        UPDATE incidents
+        SET status = ?
+        WHERE id = ?
+        """,
+        (new_status, incident_id),
+    )
+
+    conn.commit()
+    conn.close()
+
+    log_info(
+        f"Incident {incident_id} updated to '{new_status}'."
+    )
+
+def get_incident_by_id(incident_id):
+    """
+    Retrieve a single incident by ID.
+
+    Args:
+        incident_id (int): Incident ID.
+
+    Returns:
+        tuple | None
+    """
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT
+            id,
+            attack,
+            source_ip,
+            severity,
+            priority,
+            risk_score,
+            recommendation,
+            status
+        FROM incidents
+        WHERE id = ?
+        """,
+        (incident_id,),
+    )
+
+    incident = cursor.fetchone()
+
+    conn.close()
+
+    return incident
+
+def delete_incident(incident_id):
+    """
+    Delete an incident.
+
+    Args:
+        incident_id (int): Incident ID.
+    """
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        DELETE FROM incidents
+        WHERE id = ?
+        """,
+        (incident_id,),
+    )
+
+    conn.commit()
+    conn.close()
+
+    log_info(f"Incident {incident_id} deleted.")
