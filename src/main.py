@@ -1,12 +1,3 @@
-"""
-main.py
-
-Entry point for the AI Agent for Cybersecurity Incident Response.
-
-Author: Sakshi Burse
-Project: AI Agent for Cybersecurity Incident Response
-"""
-
 from ai_agent.orchestrator import run_ai_pipeline
 from utils.logger import log_info
 
@@ -19,7 +10,7 @@ def main():
     # ---------------------------------------------------------
     # Execute Complete AI Pipeline
     # ---------------------------------------------------------
-    logs, threats, analysis, responses = run_ai_pipeline()
+    logs, threats, analysis, responses, execution_results = run_ai_pipeline()
 
     if not logs:
         print("\nNo logs found.")
@@ -77,10 +68,27 @@ def main():
             print(f"Priority        : {response['Priority']}")
             print(f"Response Time   : {response['Response_Time']}")
 
+            # -------------------------------------------------
+            # Recommended Actions
+            # -------------------------------------------------
             print("\nRecommended Actions:")
 
             for action in response["Actions"]:
                 print(f"  • {action}")
+
+            # -------------------------------------------------
+            # Response Action Execution
+            # -------------------------------------------------
+            execution = execution_results[index - 1]
+
+            print("\nResponse Action Execution")
+            print("-----------------------------------------------")
+            print(f"Execution Status : {execution['Execution_Status']}")
+
+            print("\nExecuted Actions:")
+
+            for action in execution["Executed_Actions"]:
+                print(f"  ✔ {action['Action']} ({action['Status']})")
 
             # -------------------------------------------------
             # SOC Playbook
@@ -104,7 +112,7 @@ def main():
             for step in playbook["Recovery"]:
                 print(f"  • {step}")
 
-        print("\n===============================================")
+            print("\n===============================================")
 
     else:
         print("\nNo incident responses generated.")
