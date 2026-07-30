@@ -6,8 +6,30 @@ Dashboard
 
 {% block content %}
 
-<h2>Dashboard</h2>
+<h2>Dashboard Overview</h2>
 
-<p>Welcome to the AI Security Operations Center Dashboard.</p>
+<div class="cards">
+
+    <div class="card">
+        <h3>Total Incidents</h3>
+        <p>{{ stats.total_incidents }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Open Incidents</h3>
+        <p>{{ stats.open_incidents }}</p>
+    </div>
+
+    <div class="card">
+        <h3>High Severity</h3>
+        <p>{{ stats.high_severity }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Critical Risk</h3>
+        <p>{{ stats.critical_risk }}</p>
+    </div>
+
+</div>
 
 {% endblock %}

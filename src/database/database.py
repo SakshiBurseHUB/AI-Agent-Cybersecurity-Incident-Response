@@ -111,6 +111,48 @@ def get_all_incidents():
 
     return incidents
 
+def get_dashboard_statistics():
+    """
+    Retrieve dashboard statistics.
+
+    Returns:
+        dict: Dashboard statistics.
+    """
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    # Total incidents
+    cursor.execute("SELECT COUNT(*) FROM incidents")
+    total_incidents = cursor.fetchone()[0]
+
+    # Open incidents
+    cursor.execute(
+        "SELECT COUNT(*) FROM incidents WHERE status='Open'"
+    )
+    open_incidents = cursor.fetchone()[0]
+
+    # High severity incidents
+    cursor.execute(
+        "SELECT COUNT(*) FROM incidents WHERE severity='High'"
+    )
+    high_severity = cursor.fetchone()[0]
+
+    # Critical risk incidents
+    cursor.execute(
+        "SELECT COUNT(*) FROM incidents WHERE risk_score >= 90"
+    )
+    critical_risk = cursor.fetchone()[0]
+
+    conn.close()
+
+    return {
+        "total_incidents": total_incidents,
+        "open_incidents": open_incidents,
+        "high_severity": high_severity,
+        "critical_risk": critical_risk,
+    }
+
 def update_status(incident_id, new_status):
     """
     Update the status of an incident.

@@ -40,3 +40,32 @@ footer{
     padding:15px;
     margin-top:40px;
 }
+
+.cards{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:30px;
+}
+
+.card{
+
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.card h3{
+
+    color:#0d6efd;
+    margin-bottom:15px;
+}
+
+.card p{
+
+    font-size:32px;
+    font-weight:bold;
+}
