@@ -1,6 +1,6 @@
 from ai_agent.orchestrator import run_ai_pipeline
 from utils.logger import log_info
-from database.database import create_tables
+from database.database import create_tables, get_all_incidents
 from database.database import create_tables, get_all_incidents
 
 
@@ -144,27 +144,31 @@ def main():
 
     log_info("Application finished successfully.")
 
-# ---------------------------------------------------------
-# Saved Incidents
-# ---------------------------------------------------------
+    # ---------------------------------------------------------
+    # Saved Incidents
+    # ---------------------------------------------------------
+    incidents = get_all_incidents()
 
-incidents = get_all_incidents()
+    print("\n============== Saved Incidents ==============")
 
-print("\n============== Saved Incidents ==============")
+    if incidents:
 
-for incident in incidents:
+        for incident in incidents:
 
-    print("-----------------------------------------------")
-    print(f"Incident ID    : {incident[0]}")
-    print(f"Attack         : {incident[1]}")
-    print(f"Source IP      : {incident[2]}")
-    print(f"Severity       : {incident[3]}")
-    print(f"Priority       : {incident[4]}")
-    print(f"Risk Score     : {incident[5]}")
-    print(f"Status         : {incident[7]}")
+            print("-----------------------------------------------")
+            print(f"Incident ID    : {incident[0]}")
+            print(f"Attack         : {incident[1]}")
+            print(f"Source IP      : {incident[2]}")
+            print(f"Severity       : {incident[3]}")
+            print(f"Priority       : {incident[4]}")
+            print(f"Risk Score     : {incident[5]}")
+            print(f"Recommendation : {incident[6]}")
+            print(f"Status         : {incident[7]}")
 
-print("=============================================")
+        print("=============================================")
 
+    else:
+        print("\nNo incidents found in the database.")
 
 if __name__ == "__main__":
     main()
