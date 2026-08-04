@@ -97,6 +97,33 @@ def run_analysis():
             "message": str(e)
 
         }), 500
+
+    # ---------------------------------------------------------
+# Dashboard API
+# ---------------------------------------------------------
+@app.route("/dashboard-data")
+def dashboard_data():
+
+    stats = get_dashboard_statistics()
+
+    attack_stats = get_attack_statistics()
+
+    severity_stats = get_severity_statistics()
+
+    incidents = get_all_incidents()
+
+    return jsonify({
+
+        "stats": stats,
+
+        "attack_stats": attack_stats,
+
+        "severity_stats": severity_stats,
+
+        "incidents": incidents
+
+    })
+
 # ---------------------------------------------------------
 # Incidents Page
 # ---------------------------------------------------------

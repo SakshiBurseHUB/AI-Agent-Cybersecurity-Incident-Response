@@ -186,7 +186,7 @@ if(runBtn){
 
             progress.innerHTML +=
                 `<div class="pipeline-current">
-                    ⏳ ${steps[i]}
+                     ${steps[i]}
                 </div>`;
 
             await new Promise(r=>setTimeout(r,500));
@@ -203,7 +203,7 @@ if(runBtn){
 
                 progress.innerHTML +=
                     `<div class="pipeline-success mt-3">
-                        🎉 Pipeline Completed Successfully
+                         Pipeline Completed Successfully
                     </div>`;
 
                 setTimeout(function(){
@@ -241,3 +241,57 @@ if(runBtn){
     });
 
 }
+
+// ======================================
+// Live Dashboard Refresh
+// ======================================
+
+async function refreshDashboard(){
+
+    try{
+
+        const response =
+            await fetch("/dashboard-data");
+
+        const data =
+            await response.json();
+
+        document.getElementById(
+            "totalIncidents"
+        ).innerText =
+            data.stats.total_incidents;
+
+        document.getElementById(
+            "openIncidents"
+        ).innerText =
+            data.stats.open_incidents;
+
+        document.getElementById(
+            "highSeverity"
+        ).innerText =
+            data.stats.high_severity;
+
+        document.getElementById(
+            "criticalRisk"
+        ).innerText =
+            data.stats.critical_risk;
+
+    }
+
+    catch(error){
+
+        console.log(
+            "Dashboard refresh failed."
+        );
+
+    }
+
+}
+
+setInterval(
+
+    refreshDashboard,
+
+    30000
+
+);

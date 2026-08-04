@@ -212,8 +212,6 @@ Dashboard
 
 </div>
 
-
-
     <!-- ==========================
          Professional Dashboard Cards
     =========================== -->
@@ -244,12 +242,14 @@ Dashboard
 
 
 
-                <h2 class="counter"
-                    data-target="{{ stats.total_incidents }}">
+                <h2
+    id="totalIncidents"
+    class="counter"
+    data-target="{{ stats.total_incidents }}">
 
-                    0
+    {{ stats.total_incidents }}
 
-                </h2>
+</h2>
 
 
 
@@ -282,10 +282,6 @@ Dashboard
 
         </div>
 
-
-
-
-
         <!-- Open Incidents -->
 
 
@@ -309,13 +305,14 @@ Dashboard
 
 
 
-                <h2 class="counter"
-                    data-target="{{ stats.open_incidents }}">
+               <h2
+    id="openIncidents"
+    class="counter"
+    data-target="{{ stats.open_incidents }}">
 
-                    0
+    {{ stats.open_incidents }}
 
-                </h2>
-
+</h2>
 
 
 
@@ -351,11 +348,6 @@ Dashboard
 
         </div>
 
-
-
-
-
-
         <!-- High Severity -->
 
 
@@ -380,12 +372,14 @@ Dashboard
 
 
 
-                <h2 class="counter"
-                    data-target="{{ stats.high_severity }}">
+                <h2
+    id="highSeverity"
+    class="counter"
+    data-target="{{ stats.high_severity }}">
 
-                    0
+    {{ stats.high_severity }}
 
-                </h2>
+</h2>
 
 
 
@@ -423,11 +417,6 @@ Dashboard
 
         </div>
 
-
-
-
-
-
         <!-- Critical Risk -->
 
 
@@ -452,12 +441,14 @@ Dashboard
 
 
 
-                <h2 class="counter"
-                    data-target="{{ stats.critical_risk }}">
+                <h2
+    id="criticalRisk"
+    class="counter"
+    data-target="{{ stats.critical_risk }}">
 
-                    0
+    {{ stats.critical_risk }}
 
-                </h2>
+</h2>
 
 
 
@@ -498,13 +489,6 @@ Dashboard
 
 
     </div>
-
-
-
-
-
-
-
 
     <!-- ==========================
               Charts
@@ -575,12 +559,6 @@ Dashboard
 
     </div>
 
-
-
-
-
-
-
     <!-- ==========================
               Quick Actions
     =========================== -->
@@ -643,18 +621,9 @@ Dashboard
 
     </div>
 
-
-
-
-
-
-
-
     <!-- ==========================
            Recent Incidents
     =========================== -->
-
-
     <div class="table-section mt-5">
 
 
@@ -877,18 +846,9 @@ Dashboard
 
     </div>
 
-
-
-
-
-
-
-
     <!-- ==========================
              Recent Activity
     =========================== -->
-
-
 
     <div class="row mt-5">
 
