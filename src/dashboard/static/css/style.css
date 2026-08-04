@@ -492,3 +492,79 @@ main{
     color:#ffffff;
 
 }
+
+/* ==========================================
+   Security Overview Widgets
+========================================== */
+
+.overview-card{
+
+    background:#ffffff;
+
+    border-radius:16px;
+
+    padding:22px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.overview-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 16px 30px rgba(0,0,0,.15);
+
+}
+
+.overview-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:16px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#ffffff;
+
+    font-size:26px;
+
+}
+
+.overview-card h6{
+
+    color:#64748B;
+
+    margin-bottom:5px;
+
+}
+
+.overview-card h3{
+
+    margin:0;
+
+    font-size:28px;
+
+    color:#0F172A;
+
+}
+
+.overview-card small{
+
+    font-weight:600;
+
+}
