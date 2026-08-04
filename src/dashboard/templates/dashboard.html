@@ -4,306 +4,744 @@
 Dashboard
 {% endblock %}
 
+
 {% block content %}
+
 
 <div class="container-fluid">
 
-    <h2 class="page-title">Dashboard</h2>
 
-    <!-- Statistics Cards -->
+    <h2 class="page-title">
+        Dashboard
+    </h2>
+
+
+
+    <!-- ==========================
+         Professional Dashboard Cards
+    =========================== -->
+
 
     <div class="row g-4 mt-2">
 
+
+        <!-- Total Incidents -->
+
+
         <div class="col-lg-3 col-md-6">
 
-            <div class="dashboard-card">
+
+            <div class="dashboard-card primary-card">
+
 
                 <div class="card-header">
+
 
                     <i class="bi bi-shield-check"></i>
 
+
                     <h6>Total Incidents</h6>
+
 
                 </div>
 
-                <h2>{{ stats.total_incidents }}</h2>
+
+
+                <h2 class="counter"
+                    data-target="{{ stats.total_incidents }}">
+
+                    0
+
+                </h2>
+
+
+
+
+                <div class="progress mt-3">
+
+
+                    <div class="progress-bar bg-primary"
+                         style="width:85%">
+
+                    </div>
+
+
+                </div>
+
+
+
+                <small class="trend text-success">
+
+                    <i class="bi bi-arrow-up"></i>
+
+                    +12% this week
+
+                </small>
+
+
 
             </div>
 
+
         </div>
+
+
+
+
+
+        <!-- Open Incidents -->
+
 
         <div class="col-lg-3 col-md-6">
 
-            <div class="dashboard-card">
+
+            <div class="dashboard-card warning-card">
+
 
                 <div class="card-header">
+
 
                     <i class="bi bi-exclamation-circle"></i>
 
+
                     <h6>Open Incidents</h6>
+
 
                 </div>
 
-                <h2>{{ stats.open_incidents }}</h2>
+
+
+
+                <h2 class="counter"
+                    data-target="{{ stats.open_incidents }}">
+
+                    0
+
+                </h2>
+
+
+
+
+                <div class="progress mt-3">
+
+
+                    <div class="progress-bar bg-warning"
+                         style="width:70%">
+
+                    </div>
+
+
+                </div>
+
+
+
+                <small class="trend text-warning">
+
+
+                    <i class="bi bi-dash-circle"></i>
+
+
+                    Stable
+
+
+                </small>
+
+
+
 
             </div>
 
+
         </div>
+
+
+
+
+
+
+        <!-- High Severity -->
+
 
         <div class="col-lg-3 col-md-6">
 
-            <div class="dashboard-card">
+
+            <div class="dashboard-card danger-card">
+
+
 
                 <div class="card-header">
+
 
                     <i class="bi bi-fire"></i>
 
+
                     <h6>High Severity</h6>
+
 
                 </div>
 
-                <h2>{{ stats.high_severity }}</h2>
+
+
+
+                <h2 class="counter"
+                    data-target="{{ stats.high_severity }}">
+
+                    0
+
+                </h2>
+
+
+
+
+
+                <div class="progress mt-3">
+
+
+                    <div class="progress-bar bg-danger"
+                         style="width:55%">
+
+                    </div>
+
+
+                </div>
+
+
+
+
+                <small class="trend text-danger">
+
+
+                    <i class="bi bi-arrow-up"></i>
+
+
+                    High Risk
+
+
+                </small>
+
+
 
             </div>
 
+
         </div>
+
+
+
+
+
+
+        <!-- Critical Risk -->
+
 
         <div class="col-lg-3 col-md-6">
 
-            <div class="dashboard-card">
+
+            <div class="dashboard-card success-card">
+
+
 
                 <div class="card-header">
 
+
                     <i class="bi bi-graph-up-arrow"></i>
+
 
                     <h6>Critical Risk</h6>
 
+
                 </div>
 
-                <h2>{{ stats.critical_risk }}</h2>
+
+
+
+                <h2 class="counter"
+                    data-target="{{ stats.critical_risk }}">
+
+                    0
+
+                </h2>
+
+
+
+
+
+                <div class="progress mt-3">
+
+
+                    <div class="progress-bar bg-success"
+                         style="width:95%">
+
+                    </div>
+
+
+                </div>
+
+
+
+
+                <small class="trend text-success">
+
+
+                    <i class="bi bi-check-circle"></i>
+
+
+                    Protected
+
+
+                </small>
+
+
 
             </div>
 
+
         </div>
+
+
 
     </div>
 
-    <!-- Charts -->
+
+
+
+
+
+
+
+    <!-- ==========================
+              Charts
+    =========================== -->
+
 
     <div class="row mt-5">
+
 
         <div class="col-lg-8">
 
+
             <div class="table-section">
 
-                <h4 class="mb-3">Incident Trend</h4>
 
-               <canvas
+                <h4 class="mb-3">
+                    Incident Trend
+                </h4>
+
+
+
+
+                <canvas
                 id="incidentChart"
                 data-labels='{{ severity_stats | map(attribute=0) | list | tojson }}'
                 data-values='{{ severity_stats | map(attribute=1) | list | tojson }}'>
-               </canvas>
+                </canvas>
+
+
+
 
             </div>
 
+
         </div>
+
+
+
+
 
         <div class="col-lg-4">
 
+
             <div class="table-section">
 
-                <h4 class="mb-3">Attack Distribution</h4>
+
+                <h4 class="mb-3">
+                    Attack Distribution
+                </h4>
+
+
+
 
                 <canvas
-                    id="attackChart"
-                    data-labels='{{ attack_stats | map(attribute=0) | list | tojson }}'
-                    data-values='{{ attack_stats | map(attribute=1) | list | tojson }}'>
+                id="attackChart"
+                data-labels='{{ attack_stats | map(attribute=0) | list | tojson }}'
+                data-values='{{ attack_stats | map(attribute=1) | list | tojson }}'>
                 </canvas>
+
+
+
 
             </div>
 
+
         </div>
+
 
     </div>
 
-    <!-- Quick Actions -->
+
+
+
+
+
+
+    <!-- ==========================
+              Quick Actions
+    =========================== -->
+
 
     <div class="row mt-5">
 
+
         <div class="col-12">
+
 
             <div class="table-section">
 
-                <h4 class="mb-4">Quick Actions</h4>
+
+                <h4 class="mb-4">
+                    Quick Actions
+                </h4>
+
+
+
 
                 <button class="btn btn-primary me-2">
                     New Incident
                 </button>
 
+
+
                 <button class="btn btn-success me-2">
                     Export Report
                 </button>
+
+
 
                 <button class="btn btn-warning me-2">
                     Run Scan
                 </button>
 
+
+
                 <button class="btn btn-danger">
                     Generate Alert
                 </button>
 
+
+
+
             </div>
+
 
         </div>
 
+
     </div>
 
-    <!-- Recent Incidents -->
+
+
+
+
+
+
+
+    <!-- ==========================
+           Recent Incidents
+    =========================== -->
+
 
     <div class="table-section mt-5">
 
-        <h4 class="mb-4">Recent Incidents</h4>
+
+        <h4 class="mb-4">
+            Recent Incidents
+        </h4>
+
+
+
 
         <table class="table table-hover align-middle">
 
+
             <thead>
+
 
                 <tr>
 
+
                     <th>ID</th>
+
                     <th>Attack</th>
+
                     <th>Source IP</th>
+
                     <th>Severity</th>
+
                     <th>Priority</th>
+
                     <th>Risk Score</th>
+
                     <th>Status</th>
+
 
                 </tr>
 
+
             </thead>
+
+
+
+
 
             <tbody>
 
-                {% if incidents %}
 
-                    {% for incident in incidents %}
 
-                    <tr>
+            {% if incidents %}
 
-                        <td>{{ incident[0] }}</td>
 
-                        <td>{{ incident[1] }}</td>
 
-                        <td>{{ incident[2] }}</td>
+                {% for incident in incidents %}
 
-                        <td>
 
-                            {% if incident[3] == "High" %}
 
-                                <span class="badge bg-danger">High</span>
 
-                            {% elif incident[3] == "Medium" %}
+                <tr>
 
-                                <span class="badge bg-warning text-dark">Medium</span>
 
-                            {% else %}
+                    <td>
+                        {{ incident[0] }}
+                    </td>
 
-                                <span class="badge bg-success">Low</span>
 
-                            {% endif %}
+                    <td>
+                        {{ incident[1] }}
+                    </td>
 
-                        </td>
 
-                        <td>{{ incident[4] }}</td>
+                    <td>
+                        {{ incident[2] }}
+                    </td>
 
-                        <td>{{ incident[5] }}</td>
 
-                        <td>
 
-                            {% if incident[7] == "Open" %}
 
-                                <span class="badge bg-primary">Open</span>
+                    <td>
 
-                            {% elif incident[7] == "In Progress" %}
 
-                                <span class="badge bg-warning text-dark">In Progress</span>
+                    {% if incident[3] == "High" %}
 
-                            {% elif incident[7] == "Resolved" %}
 
-                                <span class="badge bg-success">Resolved</span>
+                        <span class="badge bg-danger">
+                            High
+                        </span>
 
-                            {% else %}
 
-                                <span class="badge bg-secondary">
+                    {% elif incident[3] == "Medium" %}
 
-                                    {{ incident[7] }}
 
-                                </span>
+                        <span class="badge bg-warning text-dark">
+                            Medium
+                        </span>
 
-                            {% endif %}
 
-                        </td>
+                    {% else %}
 
-                    </tr>
 
-                    {% endfor %}
+                        <span class="badge bg-success">
+                            Low
+                        </span>
 
-                {% else %}
 
-                    <tr>
+                    {% endif %}
 
-                        <td colspan="7" class="text-center">
 
-                            No incidents available.
 
-                        </td>
+                    </td>
 
-                    </tr>
 
-                {% endif %}
+
+
+
+                    <td>
+                        {{ incident[4] }}
+                    </td>
+
+
+
+                    <td>
+                        {{ incident[5] }}
+                    </td>
+
+
+
+
+
+                    <td>
+
+
+                    {% if incident[7]=="Open" %}
+
+
+                        <span class="badge bg-primary">
+                            Open
+                        </span>
+
+
+
+                    {% elif incident[7]=="In Progress" %}
+
+
+                        <span class="badge bg-warning text-dark">
+                            In Progress
+                        </span>
+
+
+
+                    {% elif incident[7]=="Resolved" %}
+
+
+                        <span class="badge bg-success">
+                            Resolved
+                        </span>
+
+
+
+                    {% else %}
+
+
+                        <span class="badge bg-secondary">
+                            {{ incident[7] }}
+                        </span>
+
+
+
+                    {% endif %}
+
+
+
+                    </td>
+
+
+
+                </tr>
+
+
+
+                {% endfor %}
+
+
+
+
+            {% else %}
+
+
+
+
+                <tr>
+
+
+                    <td colspan="7"
+                        class="text-center">
+
+
+                        No incidents available.
+
+
+
+                    </td>
+
+
+
+                </tr>
+
+
+
+            {% endif %}
+
+
+
 
             </tbody>
 
+
+
         </table>
+
+
 
     </div>
 
-    <!-- Recent Activity -->
+
+
+
+
+
+
+
+    <!-- ==========================
+             Recent Activity
+    =========================== -->
+
+
 
     <div class="row mt-5">
 
+
         <div class="col-12">
+
 
             <div class="table-section">
 
-                <h4 class="mb-4">Recent Activity</h4>
+
+                <h4 class="mb-4">
+                    Recent Activity
+                </h4>
+
+
+
 
                 <ul class="list-group">
+
 
                     <li class="list-group-item">
                         Brute Force attack detected.
                     </li>
 
+
                     <li class="list-group-item">
                         Incident saved to database.
                     </li>
+
 
                     <li class="list-group-item">
                         Response playbook executed.
                     </li>
 
+
                     <li class="list-group-item">
                         SOC notification sent.
                     </li>
 
+
+
                 </ul>
+
+
+
 
             </div>
 
+
         </div>
+
 
     </div>
 
+
+
 </div>
+
+
 
 {% endblock %}

@@ -303,3 +303,70 @@ main{
 
     color:#64748B;
 }
+
+/* ==========================================
+   Dashboard Cards
+========================================== */
+
+.dashboard-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+    border-left:6px solid #2563EB;
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.primary-card{
+
+    border-left-color:#2563EB;
+}
+
+.warning-card{
+
+    border-left-color:#F59E0B;
+}
+
+.danger-card{
+
+    border-left-color:#EF4444;
+}
+
+.success-card{
+
+    border-left-color:#22C55E;
+}
+
+.counter{
+
+    font-size:40px;
+
+    font-weight:bold;
+
+    margin-top:15px;
+}
+
+.progress{
+
+    height:8px;
+
+    border-radius:20px;
+}
+
+.trend{
+
+    display:block;
+
+    margin-top:15px;
+
+    font-weight:600;
+}

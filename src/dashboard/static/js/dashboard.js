@@ -105,3 +105,39 @@ function updateClock() {
 updateClock();
 
 setInterval(updateClock, 1000);
+
+// ======================================
+// Animated Counters
+// ======================================
+
+const counters = document.querySelectorAll(".counter");
+
+counters.forEach(counter => {
+
+    const updateCounter = () => {
+
+        const target = Number(counter.dataset.target);
+
+        const current = Number(counter.innerText);
+
+        const increment = Math.ceil(target / 40);
+
+        if (current < target) {
+
+            counter.innerText = current + increment;
+
+            setTimeout(updateCounter, 40);
+
+        }
+
+        else{
+
+            counter.innerText = target;
+
+        }
+
+    };
+
+    updateCounter();
+
+});
