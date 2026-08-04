@@ -143,14 +143,14 @@ counters.forEach(counter => {
 });
 
 // ======================================
-// Run AI Pipeline (AJAX)
+// AI Pipeline Progress
 // ======================================
 
 const runBtn = document.getElementById("runPipelineBtn");
 
-if (runBtn) {
+if(runBtn){
 
-    runBtn.addEventListener("click", async function () {
+    runBtn.addEventListener("click", async function(){
 
         const modal = new bootstrap.Modal(
             document.getElementById("loadingModal")
@@ -158,33 +158,83 @@ if (runBtn) {
 
         modal.show();
 
-        try {
+        const progress = document.getElementById("pipelineProgress");
+
+        const steps = [
+
+            "Collecting Security Logs",
+
+            "Detecting Threats",
+
+            "Classifying Threats",
+
+            "Analyzing Threats",
+
+            "Saving Incidents",
+
+            "Generating Responses",
+
+            "Executing Playbooks",
+
+            "Sending Notifications"
+
+        ];
+
+        progress.innerHTML = "";
+
+        for(let i=0;i<steps.length;i++){
+
+            progress.innerHTML +=
+                `<div class="pipeline-current">
+                    ⏳ ${steps[i]}
+                </div>`;
+
+            await new Promise(r=>setTimeout(r,500));
+
+        }
+
+        try{
 
             const response = await fetch("/run-analysis");
 
             const result = await response.json();
 
-            modal.hide();
+            if(result.success){
 
-            if (result.success) {
+                progress.innerHTML +=
+                    `<div class="pipeline-success mt-3">
+                        🎉 Pipeline Completed Successfully
+                    </div>`;
 
-                alert(result.message);
+                setTimeout(function(){
 
-                location.reload();
+                    modal.hide();
 
-            } else {
+                    location.reload();
 
-                alert(result.message);
+                },1000);
+
+            }
+
+            else{
+
+                progress.innerHTML +=
+                    `<div class="text-danger mt-3">
+                        ${result.message}
+                    </div>`;
 
             }
 
         }
 
-        catch (error) {
+        catch(error){
 
-            modal.hide();
+            progress.innerHTML +=
+                `<div class="text-danger mt-3">
 
-            alert("Unable to connect to AI Pipeline.");
+                    Connection Error
+
+                </div>`;
 
         }
 
