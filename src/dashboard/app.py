@@ -9,7 +9,7 @@ SRC_DIR = Path(__file__).resolve().parent.parent
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, flash
 
 from database.database import (
     create_tables,
@@ -19,11 +19,15 @@ from database.database import (
     get_severity_statistics,
 )
 
+from ai_agent.orchestrator import run_ai_pipeline
+
 app = Flask(
     __name__,
     template_folder="templates",
     static_folder="static",
 )
+
+app.secret_key = "soc_dashboard_secret_key"
 
 # ---------------------------------------------------------
 # Initialize Database
@@ -59,6 +63,29 @@ def home():
 
     )
 
+# ---------------------------------------------------------
+# Run AI Analysis
+# ---------------------------------------------------------
+@app.route("/run-analysis")
+def run_analysis():
+
+    try:
+
+        run_ai_pipeline()
+
+        flash(
+            "AI Incident Response Pipeline completed successfully!",
+            "success"
+        )
+
+    except Exception as e:
+
+        flash(
+            f"Pipeline failed: {e}",
+            "danger"
+        )
+
+    return redirect(url_for("home"))
 
 # ---------------------------------------------------------
 # Incidents Page
