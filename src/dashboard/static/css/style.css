@@ -370,3 +370,125 @@ main{
 
     font-weight:600;
 }
+
+/* ==========================================
+   Hero Section
+========================================== */
+
+.hero-section{
+
+    background:linear-gradient(135deg,#0F172A,#1E3A8A);
+
+    color:#ffffff;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    margin-bottom:35px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.18);
+
+}
+
+.hero-content{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+}
+
+.hero-section h2{
+
+    font-size:32px;
+
+    margin-bottom:10px;
+
+}
+
+.hero-section p{
+
+    color:#CBD5E1;
+
+    max-width:650px;
+
+    line-height:1.7;
+
+}
+
+.hero-status{
+
+    display:flex;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
+}
+
+.status-card{
+
+    background:rgba(255,255,255,.08);
+
+    padding:18px;
+
+    border-radius:14px;
+
+    min-width:180px;
+
+    backdrop-filter:blur(8px);
+
+}
+
+.status-title{
+
+    display:block;
+
+    font-size:14px;
+
+    color:#CBD5E1;
+
+    margin-bottom:8px;
+
+}
+
+.status-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+    font-size:14px;
+
+}
+
+.status-badge.success{
+
+    background:#16A34A;
+
+    color:#ffffff;
+
+}
+
+.status-badge.primary{
+
+    background:#2563EB;
+
+    color:#ffffff;
+
+}
