@@ -141,3 +141,53 @@ counters.forEach(counter => {
     updateCounter();
 
 });
+
+// ======================================
+// Run AI Pipeline (AJAX)
+// ======================================
+
+const runBtn = document.getElementById("runPipelineBtn");
+
+if (runBtn) {
+
+    runBtn.addEventListener("click", async function () {
+
+        const modal = new bootstrap.Modal(
+            document.getElementById("loadingModal")
+        );
+
+        modal.show();
+
+        try {
+
+            const response = await fetch("/run-analysis");
+
+            const result = await response.json();
+
+            modal.hide();
+
+            if (result.success) {
+
+                alert(result.message);
+
+                location.reload();
+
+            } else {
+
+                alert(result.message);
+
+            }
+
+        }
+
+        catch (error) {
+
+            modal.hide();
+
+            alert("Unable to connect to AI Pipeline.");
+
+        }
+
+    });
+
+}

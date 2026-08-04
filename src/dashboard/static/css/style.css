@@ -584,3 +584,23 @@ main{
     box-shadow:0 5px 12px rgba(0,0,0,.08);
 
 }
+
+/* ==========================================
+   Loading Modal
+========================================== */
+
+.modal-content{
+
+    border:none;
+
+    border-radius:18px;
+
+    box-shadow:0 20px 45px rgba(0,0,0,.2);
+
+}
+
+.spinner-border{
+
+    animation:spinner-border .8s linear infinite;
+
+}

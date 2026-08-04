@@ -9,7 +9,14 @@ SRC_DIR = Path(__file__).resolve().parent.parent
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from flask import Flask, render_template, redirect, url_for, flash
+from flask import (
+    Flask,
+    render_template,
+    redirect,
+    url_for,
+    flash,
+    jsonify
+)
 
 from database.database import (
     create_tables,
@@ -73,20 +80,23 @@ def run_analysis():
 
         run_ai_pipeline()
 
-        flash(
-            "AI Incident Response Pipeline completed successfully!",
-            "success"
-        )
+        return jsonify({
+
+            "success": True,
+
+            "message": "AI Pipeline completed successfully."
+
+        })
 
     except Exception as e:
 
-        flash(
-            f"Pipeline failed: {e}",
-            "danger"
-        )
+        return jsonify({
 
-    return redirect(url_for("home"))
+            "success": False,
 
+            "message": str(e)
+
+        }), 500
 # ---------------------------------------------------------
 # Incidents Page
 # ---------------------------------------------------------
