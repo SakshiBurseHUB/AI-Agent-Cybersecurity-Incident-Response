@@ -11,13 +11,34 @@ Dashboard
 <div class="container-fluid">
 
 
-    <h2 class="page-title">
+    <div class="dashboard-header">
 
-<i class="bi bi-speedometer2"></i>
+    <div>
 
-SOC Dashboard
+        <h2 class="page-title">
+            <i class="bi bi-speedometer2"></i>
+            SOC Dashboard
+        </h2>
 
-</h2>
+        <small id="lastUpdated">
+            Last Updated: Loading...
+        </small>
+
+    </div>
+
+    <div class="dashboard-actions">
+
+        <span class="badge bg-success px-3 py-2">
+
+            <i class="bi bi-circle-fill"></i>
+
+            Live Monitoring
+
+        </span>
+
+    </div>
+
+</div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
 

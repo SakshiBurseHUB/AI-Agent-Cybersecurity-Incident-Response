@@ -385,7 +385,15 @@ async function refreshDashboard() {
         const total = document.getElementById("totalIncidents");
         const open = document.getElementById("openIncidents");
         const high = document.getElementById("highSeverity");
-        const critical = document.getElementById("criticalRisk");
+        const badge =
+    document.getElementById("notificationCount");
+
+if(badge){
+
+    badge.innerText =
+        data.stats.open_incidents;
+
+}
 
         if (total) total.innerText = data.stats.total_incidents;
 
@@ -461,7 +469,13 @@ async function refreshDashboard() {
 
 // Refresh dashboard every 30 seconds
 
-setInterval(refreshDashboard, 30000);
+setInterval(() => {
+
+    refreshDashboard();
+
+    updateLastUpdated();
+
+},30000);
 
 // ======================================
 // Incident Search & Filtering
@@ -543,3 +557,25 @@ if (attackSearch) {
     });
 
 }
+
+// ======================================
+// Last Updated
+// ======================================
+
+function updateLastUpdated(){
+
+    const now = new Date();
+
+    const element = document.getElementById("lastUpdated");
+
+    if(element){
+
+        element.innerHTML =
+            "Last Updated : " +
+            now.toLocaleTimeString();
+
+    }
+
+}
+
+updateLastUpdated();
