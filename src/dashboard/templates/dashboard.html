@@ -12,89 +12,12 @@ Dashboard
 
 
     <h2 class="page-title">
-        Dashboard
-    </h2>
 
-    <!-- ==========================================
-     Hero Section
-========================================== -->
+<i class="bi bi-speedometer2"></i>
 
-<div class="hero-section">
+SOC Dashboard
 
-    <div class="hero-content">
-
-        <div>
-
-            <h2>
-
-                🛡 AI Security Operations Center
-
-            </h2>
-
-            <p>
-
-                Monitor cybersecurity incidents, analyze threats,
-                execute AI-powered responses, and protect your
-                infrastructure in real time.
-
-            </p>
-
-            <button
-                class="btn btn-primary btn-lg mt-3"
-                data-bs-toggle="modal"
-                data-bs-target="#pipelineModal">
-
-                <i class="bi bi-play-circle"></i>
-
-                Run AI Analysis
-
-            </button>
-
-        </div>
-
-        <div class="hero-status">
-
-            <div class="status-card">
-
-                <span class="status-title">
-
-                    AI Engine
-
-                </span>
-
-                <span class="status-badge success">
-
-                    <i class="bi bi-cpu"></i>
-
-                    Ready
-
-                </span>
-
-            </div>
-
-            <div class="status-card">
-
-                <span class="status-title">
-
-                    Database
-
-                </span>
-
-                <span class="status-badge primary">
-
-                    <i class="bi bi-database"></i>
-
-                    Connected
-
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
+</h2>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
 
@@ -471,74 +394,97 @@ Dashboard
 
 </div>
 
-    <!-- ==========================
-              Charts
-    =========================== -->
+    <!-- ==========================================
+     Professional Analytics
+========================================== -->
 
+<div class="row mt-5">
 
-    <div class="row mt-5">
+    <!-- Incident Trend -->
 
+    <div class="col-lg-8">
 
-        <div class="col-lg-8">
+        <div class="chart-card">
 
+            <div class="chart-header">
 
-            <div class="table-section">
+                <div>
 
+                    <h4>Incident Trend</h4>
 
-                <h4 class="mb-3">
-                    Incident Trend
-                </h4>
+                    <small class="text-muted">
 
+                        Security incidents by severity
 
+                    </small>
 
+                </div>
 
-                <canvas
+                <div>
+
+                    <select class="form-select form-select-sm">
+
+                        <option>Today</option>
+                        <option selected>This Week</option>
+                        <option>This Month</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <canvas
                 id="incidentChart"
                 data-labels='{{ severity_stats | map(attribute=0) | list | tojson }}'
                 data-values='{{ severity_stats | map(attribute=1) | list | tojson }}'>
-                </canvas>
-
-
-
-
-            </div>
-
+            </canvas>
 
         </div>
 
+    </div>
 
+    <!-- Attack Distribution -->
 
+    <div class="col-lg-4">
 
+        <div class="chart-card">
 
-        <div class="col-lg-4">
+            <div class="chart-header">
 
+                <div>
 
-            <div class="table-section">
+                    <h4>Attack Distribution</h4>
 
+                    <small class="text-muted">
 
-                <h4 class="mb-3">
-                    Attack Distribution
-                </h4>
+                        Detected attack types
 
+                    </small>
 
+                </div>
 
+                <button
+                    class="btn btn-outline-primary btn-sm">
 
-                <canvas
+                    <i class="bi bi-arrow-clockwise"></i>
+
+                </button>
+
+            </div>
+
+            <canvas
                 id="attackChart"
                 data-labels='{{ attack_stats | map(attribute=0) | list | tojson }}'
                 data-values='{{ attack_stats | map(attribute=1) | list | tojson }}'>
-                </canvas>
-
-
-
-
-            </div>
-
+            </canvas>
 
         </div>
 
-
     </div>
+
+</div>
+
     <!-- ==========================================
      System Status
 ========================================== -->
@@ -682,7 +628,9 @@ Dashboard
 
                 <button
     id="runPipelineBtn"
-    class="btn btn-primary me-2">
+    class="btn btn-primary btn-lg mt-3"
+    data-bs-toggle="modal"
+    data-bs-target="#loadingModal">
 
     <i class="bi bi-play-circle"></i>
 
@@ -727,9 +675,65 @@ Dashboard
     <div class="table-section mt-5">
 
 
-        <h4 class="mb-4">
-            Recent Incidents
-        </h4>
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+
+    <h4 class="mb-0">
+        Recent Incidents
+    </h4>
+
+    <div class="d-flex gap-2 flex-wrap">
+
+        <input
+            type="text"
+            id="searchAttack"
+            class="form-control"
+            placeholder="Search Attack Type"
+            style="width:220px;">
+
+        <input
+            type="text"
+            id="searchIP"
+            class="form-control"
+            placeholder="Search Source IP"
+            style="width:220px;">
+
+        <select
+            id="severityFilter"
+            class="form-select"
+            style="width:170px;">
+
+            <option value="">All Severity</option>
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+
+        </select>
+
+        <select
+            id="statusFilter"
+            class="form-select"
+            style="width:170px;">
+
+            <option value="">All Status</option>
+            <option>Open</option>
+            <option>In Progress</option>
+            <option>Resolved</option>
+
+        </select>
+
+        <button
+            id="clearFilters"
+            class="btn btn-outline-secondary">
+
+            <i class="bi bi-x-circle"></i>
+
+            Clear
+
+        </button>
+
+    </div>
+
+</div>
 
 
 
@@ -775,7 +779,7 @@ Dashboard
 
 
 
-                <tr>
+                <tr class="incident-row">
 
 
                     <td>
@@ -783,19 +787,19 @@ Dashboard
                     </td>
 
 
-                    <td>
-                        {{ incident[1] }}
-                    </td>
+                   <td class="attack-column">
+    {{ incident[1] }}
+</td>
 
 
-                    <td>
-                        {{ incident[2] }}
-                    </td>
+                    <td class="ip-column">
+    {{ incident[2] }}
+</td>
 
 
 
 
-                    <td>
+                    <td class="severity-column">
 
 
                     {% if incident[3] == "High" %}
@@ -846,7 +850,7 @@ Dashboard
 
 
 
-                    <td>
+                    <td class="status-column"></td>
 
 
                     {% if incident[7]=="Open" %}

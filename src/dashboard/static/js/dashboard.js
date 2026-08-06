@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // -----------------------------
-    // Severity Chart
-    // -----------------------------
+    // ==========================================
+    // Incident Severity Chart
+    // ==========================================
 
     const severityCanvas = document.getElementById("incidentChart");
 
@@ -32,11 +32,61 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         data: values,
 
-                        borderWidth: 1
+                        backgroundColor: [
+
+                            "#2563EB",
+                            "#F59E0B",
+                            "#EF4444"
+
+                        ],
+
+                        borderRadius: 10,
+
+                        borderSkipped: false
 
                     }
 
                 ]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                animation: {
+
+                    duration: 1500
+
+                },
+
+                plugins: {
+
+                    legend: {
+
+                        display: false
+
+                    }
+
+                },
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+
+                            stepSize: 1
+
+                        }
+
+                    }
+
+                }
 
             }
 
@@ -44,9 +94,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    // -----------------------------
-    // Attack Distribution
-    // -----------------------------
+    // ==========================================
+    // Attack Distribution Chart
+    // ==========================================
 
     const attackCanvas = document.getElementById("attackChart");
 
@@ -62,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         new Chart(attackCanvas, {
 
-            type: "pie",
+            type: "doughnut",
 
             data: {
 
@@ -72,11 +122,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     {
 
-                        data: values
+                        data: values,
+
+                        backgroundColor: [
+
+                            "#2563EB",
+                            "#EF4444",
+                            "#F59E0B",
+                            "#22C55E",
+                            "#8B5CF6"
+
+                        ],
+
+                        borderWidth: 0
 
                     }
 
                 ]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                cutout: "70%",
+
+                animation: {
+
+                    duration: 1500
+
+                },
+
+                plugins: {
+
+                    legend: {
+
+                        position: "bottom"
+
+                    }
+
+                }
 
             }
 
@@ -86,19 +174,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-// -----------------------------
+
+// ==========================================
 // Live Clock
-// -----------------------------
+// ==========================================
 
 function updateClock() {
 
     const now = new Date();
 
-    document.getElementById("currentTime").innerHTML =
-        now.toLocaleTimeString();
+    const time = document.getElementById("currentTime");
 
-    document.getElementById("currentDate").innerHTML =
-        now.toDateString();
+    const date = document.getElementById("currentDate");
+
+    if (time) {
+
+        time.innerHTML = now.toLocaleTimeString();
+
+    }
+
+    if (date) {
+
+        date.innerHTML = now.toDateString();
+
+    }
 
 }
 
@@ -106,9 +205,10 @@ updateClock();
 
 setInterval(updateClock, 1000);
 
-// ======================================
-// Animated Counters
-// ======================================
+
+// ==========================================
+// Animated Dashboard Counters
+// ==========================================
 
 const counters = document.querySelectorAll(".counter");
 
@@ -130,7 +230,7 @@ counters.forEach(counter => {
 
         }
 
-        else{
+        else {
 
             counter.innerText = target;
 
@@ -142,23 +242,28 @@ counters.forEach(counter => {
 
 });
 
-// ======================================
-// AI Pipeline Progress
-// ======================================
+
+// ==========================================
+// Run AI Pipeline
+// ==========================================
 
 const runBtn = document.getElementById("runPipelineBtn");
 
-if(runBtn){
+if (runBtn) {
 
-    runBtn.addEventListener("click", async function(){
+    runBtn.addEventListener("click", async function () {
 
         const modal = new bootstrap.Modal(
+
             document.getElementById("loadingModal")
+
         );
 
         modal.show();
 
         const progress = document.getElementById("pipelineProgress");
+
+        progress.innerHTML = "";
 
         const steps = [
 
@@ -176,65 +281,85 @@ if(runBtn){
 
             "Executing Playbooks",
 
-            "Sending Notifications"
+            "Sending SOC Notifications"
 
         ];
 
-        progress.innerHTML = "";
+        for (const step of steps) {
 
-        for(let i=0;i<steps.length;i++){
+            progress.innerHTML += `
 
-            progress.innerHTML +=
-                `<div class="pipeline-current">
-                     ${steps[i]}
-                </div>`;
+                <div class="pipeline-current mb-2">
 
-            await new Promise(r=>setTimeout(r,500));
+                    <i class="bi bi-arrow-repeat"></i>
+
+                    ${step}
+
+                </div>
+
+            `;
+
+            await new Promise(resolve => setTimeout(resolve, 500));
 
         }
 
-        try{
+        try {
 
             const response = await fetch("/run-analysis");
 
             const result = await response.json();
 
-            if(result.success){
+            if (result.success) {
 
-                progress.innerHTML +=
-                    `<div class="pipeline-success mt-3">
-                         Pipeline Completed Successfully
-                    </div>`;
+                progress.innerHTML += `
 
-                setTimeout(function(){
+                    <div class="pipeline-success mt-3">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        Pipeline Completed Successfully
+
+                    </div>
+
+                `;
+
+                setTimeout(() => {
 
                     modal.hide();
 
                     location.reload();
 
-                },1000);
+                }, 1200);
 
             }
 
-            else{
+            else {
 
-                progress.innerHTML +=
-                    `<div class="text-danger mt-3">
+                progress.innerHTML += `
+
+                    <div class="text-danger mt-3">
+
                         ${result.message}
-                    </div>`;
+
+                    </div>
+
+                `;
 
             }
 
         }
 
-        catch(error){
+        catch (error) {
 
-            progress.innerHTML +=
-                `<div class="text-danger mt-3">
+            progress.innerHTML += `
+
+                <div class="text-danger mt-3">
 
                     Connection Error
 
-                </div>`;
+                </div>
+
+            `;
 
         }
 
@@ -242,111 +367,83 @@ if(runBtn){
 
 }
 
-// ======================================
+
+// ==========================================
 // Live Dashboard Refresh
-// ======================================
+// ==========================================
 
-async function refreshDashboard(){
+async function refreshDashboard() {
 
-    try{
+    try {
 
         const response = await fetch("/dashboard-data");
 
         const data = await response.json();
 
-        // -----------------------------
-        // Update Dashboard Cards
-        // -----------------------------
+        // Dashboard Cards
 
-        document.getElementById("totalIncidents").innerText =
-            data.stats.total_incidents;
+        const total = document.getElementById("totalIncidents");
+        const open = document.getElementById("openIncidents");
+        const high = document.getElementById("highSeverity");
+        const critical = document.getElementById("criticalRisk");
 
-        document.getElementById("openIncidents").innerText =
-            data.stats.open_incidents;
+        if (total) total.innerText = data.stats.total_incidents;
 
-        document.getElementById("highSeverity").innerText =
-            data.stats.high_severity;
+        if (open) open.innerText = data.stats.open_incidents;
 
-        document.getElementById("criticalRisk").innerText =
-            data.stats.critical_risk;
+        if (high) high.innerText = data.stats.high_severity;
 
-        // -----------------------------
-        // Update Incident Table
-        // -----------------------------
+        if (critical) critical.innerText = data.stats.critical_risk;
 
-        const table =
-            document.getElementById("incidentTableBody");
+        // Incident Table
+
+        const table = document.getElementById("incidentTableBody");
+
+        if (!table) return;
 
         table.innerHTML = "";
 
         data.incidents.forEach(incident => {
 
-            let severityBadge = "";
-            let statusBadge = "";
+            const severityBadge = incident[3] === "High"
 
-            if(incident[3] === "High"){
+                ? '<span class="badge bg-danger">High</span>'
 
-                severityBadge =
-                    '<span class="badge bg-danger">High</span>';
+                : incident[3] === "Medium"
 
-            }
+                ? '<span class="badge bg-warning text-dark">Medium</span>'
 
-            else if(incident[3] === "Medium"){
+                : '<span class="badge bg-success">Low</span>';
 
-                severityBadge =
-                    '<span class="badge bg-warning text-dark">Medium</span>';
+            const statusBadge = incident[7] === "Open"
 
-            }
+                ? '<span class="badge bg-primary">Open</span>'
 
-            else{
+                : incident[7] === "Resolved"
 
-                severityBadge =
-                    '<span class="badge bg-success">Low</span>';
+                ? '<span class="badge bg-success">Resolved</span>'
 
-            }
-
-            if(incident[7] === "Open"){
-
-                statusBadge =
-                    '<span class="badge bg-primary">Open</span>';
-
-            }
-
-            else if(incident[7] === "Resolved"){
-
-                statusBadge =
-                    '<span class="badge bg-success">Resolved</span>';
-
-            }
-
-            else{
-
-                statusBadge =
-                    `<span class="badge bg-secondary">
-                        ${incident[7]}
-                    </span>`;
-
-            }
+                : `<span class="badge bg-secondary">${incident[7]}</span>`;
 
             table.innerHTML += `
 
-            <tr>
+                <tr>
 
-                <td>${incident[0]}</td>
+                    <td>${incident[0]}</td>
 
-                <td>${incident[1]}</td>
+                    <td>${incident[1]}</td>
 
-                <td>${incident[2]}</td>
+                    <td>${incident[2]}</td>
 
-                <td>${severityBadge}</td>
+                    <td>${severityBadge}</td>
 
-                <td>${incident[4]}</td>
+                    <td>${incident[4]}</td>
 
-                <td>${incident[5]}</td>
+                    <td>${incident[5]}</td>
 
-                <td>${statusBadge}</td>
+                    <td>${statusBadge}</td>
 
-            </tr>
+                </tr>
 
             `;
 
@@ -354,7 +451,7 @@ async function refreshDashboard(){
 
     }
 
-    catch(error){
+    catch (error) {
 
         console.log("Dashboard refresh failed.");
 
@@ -362,6 +459,87 @@ async function refreshDashboard(){
 
 }
 
-// Refresh every 30 seconds
+// Refresh dashboard every 30 seconds
 
-setInterval(refreshDashboard,30000);
+setInterval(refreshDashboard, 30000);
+
+// ======================================
+// Incident Search & Filtering
+// ======================================
+
+const attackSearch = document.getElementById("searchAttack");
+const ipSearch = document.getElementById("searchIP");
+const severityFilter = document.getElementById("severityFilter");
+const statusFilter = document.getElementById("statusFilter");
+const clearFilters = document.getElementById("clearFilters");
+
+function filterIncidents() {
+
+    const attack = attackSearch.value.toLowerCase();
+    const ip = ipSearch.value.toLowerCase();
+    const severity = severityFilter.value;
+    const status = statusFilter.value;
+
+    const rows = document.querySelectorAll(".incident-row");
+
+    rows.forEach(row => {
+
+        const attackText =
+            row.querySelector(".attack-column").innerText.toLowerCase();
+
+        const ipText =
+            row.querySelector(".ip-column").innerText.toLowerCase();
+
+        const severityText =
+            row.querySelector(".severity-column").innerText.trim();
+
+        const statusText =
+            row.querySelector(".status-column").innerText.trim();
+
+        const matchAttack = attackText.includes(attack);
+        const matchIP = ipText.includes(ip);
+        const matchSeverity =
+            severity === "" || severityText.includes(severity);
+
+        const matchStatus =
+            status === "" || statusText.includes(status);
+
+        if (
+            matchAttack &&
+            matchIP &&
+            matchSeverity &&
+            matchStatus
+        ) {
+
+            row.style.display = "";
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+}
+
+if (attackSearch) {
+
+    attackSearch.addEventListener("keyup", filterIncidents);
+    ipSearch.addEventListener("keyup", filterIncidents);
+
+    severityFilter.addEventListener("change", filterIncidents);
+    statusFilter.addEventListener("change", filterIncidents);
+
+    clearFilters.addEventListener("click", () => {
+
+        attackSearch.value = "";
+        ipSearch.value = "";
+        severityFilter.value = "";
+        statusFilter.value = "";
+
+        filterIncidents();
+
+    });
+
+}
