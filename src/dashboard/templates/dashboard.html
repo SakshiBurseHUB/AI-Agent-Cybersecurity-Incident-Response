@@ -15,6 +15,87 @@ Dashboard
         Dashboard
     </h2>
 
+    <!-- ==========================================
+     Hero Section
+========================================== -->
+
+<div class="hero-section">
+
+    <div class="hero-content">
+
+        <div>
+
+            <h2>
+
+                🛡 AI Security Operations Center
+
+            </h2>
+
+            <p>
+
+                Monitor cybersecurity incidents, analyze threats,
+                execute AI-powered responses, and protect your
+                infrastructure in real time.
+
+            </p>
+
+            <button
+                class="btn btn-primary btn-lg mt-3"
+                data-bs-toggle="modal"
+                data-bs-target="#pipelineModal">
+
+                <i class="bi bi-play-circle"></i>
+
+                Run AI Analysis
+
+            </button>
+
+        </div>
+
+        <div class="hero-status">
+
+            <div class="status-card">
+
+                <span class="status-title">
+
+                    AI Engine
+
+                </span>
+
+                <span class="status-badge success">
+
+                    <i class="bi bi-cpu"></i>
+
+                    Ready
+
+                </span>
+
+            </div>
+
+            <div class="status-card">
+
+                <span class="status-title">
+
+                    Database
+
+                </span>
+
+                <span class="status-badge primary">
+
+                    <i class="bi bi-database"></i>
+
+                    Connected
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
 
 {% if messages %}
@@ -212,283 +293,183 @@ Dashboard
 
 </div>
 
-    <!-- ==========================
-         Professional Dashboard Cards
-    =========================== -->
+<!-- ==========================================
+     Enterprise Statistics Cards
+========================================== -->
 
+<div class="row g-4 mt-2">
 
-    <div class="row g-4 mt-2">
+    <!-- Total Incidents -->
 
+    <div class="col-lg-3 col-md-6">
 
-        <!-- Total Incidents -->
+        <div class="stats-card primary-card">
 
+            <div class="stats-header">
 
-        <div class="col-lg-3 col-md-6">
-
-
-            <div class="dashboard-card primary-card">
-
-
-                <div class="card-header">
-
+                <div class="stats-icon bg-primary">
 
                     <i class="bi bi-shield-check"></i>
 
-
-                    <h6>Total Incidents</h6>
-
-
                 </div>
 
-
-
-                <h2
-    id="totalIncidents"
-    class="counter"
-    data-target="{{ stats.total_incidents }}">
-
-    {{ stats.total_incidents }}
-
-</h2>
-
-
-
-
-                <div class="progress mt-3">
-
-
-                    <div class="progress-bar bg-primary"
-                         style="width:85%">
-
-                    </div>
-
-
-                </div>
-
-
-
-                <small class="trend text-success">
+                <span class="stats-trend text-success">
 
                     <i class="bi bi-arrow-up"></i>
 
-                    +12% this week
+                    +12%
 
-                </small>
-
-
+                </span>
 
             </div>
 
+            <h6>Total Incidents</h6>
+
+            <h2 class="counter"
+                data-target="{{ stats.total_incidents }}">
+
+                0
+
+            </h2>
+
+            <div class="progress mt-3">
+
+                <div class="progress-bar bg-primary"
+                     style="width:85%"></div>
+
+            </div>
 
         </div>
 
-        <!-- Open Incidents -->
+    </div>
 
+    <!-- Open Incidents -->
 
-        <div class="col-lg-3 col-md-6">
+    <div class="col-lg-3 col-md-6">
 
+        <div class="stats-card warning-card">
 
-            <div class="dashboard-card warning-card">
+            <div class="stats-header">
 
-
-                <div class="card-header">
-
+                <div class="stats-icon bg-warning">
 
                     <i class="bi bi-exclamation-circle"></i>
 
-
-                    <h6>Open Incidents</h6>
-
-
                 </div>
 
-
-
-
-               <h2
-    id="openIncidents"
-    class="counter"
-    data-target="{{ stats.open_incidents }}">
-
-    {{ stats.open_incidents }}
-
-</h2>
-
-
-
-                <div class="progress mt-3">
-
-
-                    <div class="progress-bar bg-warning"
-                         style="width:70%">
-
-                    </div>
-
-
-                </div>
-
-
-
-                <small class="trend text-warning">
-
-
-                    <i class="bi bi-dash-circle"></i>
-
+                <span class="stats-trend text-warning">
 
                     Stable
 
-
-                </small>
-
-
-
+                </span>
 
             </div>
 
+            <h6>Open Incidents</h6>
+
+            <h2 class="counter"
+                data-target="{{ stats.open_incidents }}">
+
+                0
+
+            </h2>
+
+            <div class="progress mt-3">
+
+                <div class="progress-bar bg-warning"
+                     style="width:70%"></div>
+
+            </div>
 
         </div>
 
-        <!-- High Severity -->
+    </div>
 
+    <!-- High Severity -->
 
-        <div class="col-lg-3 col-md-6">
+    <div class="col-lg-3 col-md-6">
 
+        <div class="stats-card danger-card">
 
-            <div class="dashboard-card danger-card">
+            <div class="stats-header">
 
-
-
-                <div class="card-header">
-
+                <div class="stats-icon bg-danger">
 
                     <i class="bi bi-fire"></i>
 
-
-                    <h6>High Severity</h6>
-
-
                 </div>
 
-
-
-
-                <h2
-    id="highSeverity"
-    class="counter"
-    data-target="{{ stats.high_severity }}">
-
-    {{ stats.high_severity }}
-
-</h2>
-
-
-
-
-
-                <div class="progress mt-3">
-
-
-                    <div class="progress-bar bg-danger"
-                         style="width:55%">
-
-                    </div>
-
-
-                </div>
-
-
-
-
-                <small class="trend text-danger">
-
-
-                    <i class="bi bi-arrow-up"></i>
-
+                <span class="stats-trend text-danger">
 
                     High Risk
 
-
-                </small>
-
-
+                </span>
 
             </div>
 
+            <h6>High Severity</h6>
+
+            <h2 class="counter"
+                data-target="{{ stats.high_severity }}">
+
+                0
+
+            </h2>
+
+            <div class="progress mt-3">
+
+                <div class="progress-bar bg-danger"
+                     style="width:55%"></div>
+
+            </div>
 
         </div>
 
-        <!-- Critical Risk -->
+    </div>
 
+    <!-- Critical Risk -->
 
-        <div class="col-lg-3 col-md-6">
+    <div class="col-lg-3 col-md-6">
 
+        <div class="stats-card success-card">
 
-            <div class="dashboard-card success-card">
+            <div class="stats-header">
 
-
-
-                <div class="card-header">
-
+                <div class="stats-icon bg-success">
 
                     <i class="bi bi-graph-up-arrow"></i>
 
-
-                    <h6>Critical Risk</h6>
-
-
                 </div>
 
-
-
-
-                <h2
-    id="criticalRisk"
-    class="counter"
-    data-target="{{ stats.critical_risk }}">
-
-    {{ stats.critical_risk }}
-
-</h2>
-
-
-
-
-
-                <div class="progress mt-3">
-
-
-                    <div class="progress-bar bg-success"
-                         style="width:95%">
-
-                    </div>
-
-
-                </div>
-
-
-
-
-                <small class="trend text-success">
-
-
-                    <i class="bi bi-check-circle"></i>
-
+                <span class="stats-trend text-success">
 
                     Protected
 
-
-                </small>
-
-
+                </span>
 
             </div>
 
+            <h6>Critical Risk</h6>
+
+            <h2 class="counter"
+                data-target="{{ stats.critical_risk }}">
+
+                0
+
+            </h2>
+
+            <div class="progress mt-3">
+
+                <div class="progress-bar bg-success"
+                     style="width:95%"></div>
+
+            </div>
 
         </div>
 
-
-
     </div>
+
+</div>
 
     <!-- ==========================
               Charts
@@ -558,6 +539,125 @@ Dashboard
 
 
     </div>
+    <!-- ==========================================
+     System Status
+========================================== -->
+
+<div class="row mt-5">
+
+    <div class="col-lg-3">
+
+        <div class="dashboard-card success-card">
+
+            <div class="card-header">
+
+                <i class="bi bi-hdd-network"></i>
+
+                <h6>Database</h6>
+
+            </div>
+
+            <h5 class="text-success">
+
+                🟢 Online
+
+            </h5>
+
+            <small>
+
+                SQLite Connected
+
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="dashboard-card primary-card">
+
+            <div class="card-header">
+
+                <i class="bi bi-cpu"></i>
+
+                <h6>AI Engine</h6>
+
+            </div>
+
+            <h5 class="text-primary">
+
+                🟢 Ready
+
+            </h5>
+
+            <small>
+
+                Pipeline Available
+
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="dashboard-card warning-card">
+
+            <div class="card-header">
+
+                <i class="bi bi-file-earmark-text"></i>
+
+                <h6>Log Collector</h6>
+
+            </div>
+
+            <h5 class="text-warning">
+
+                Monitoring
+
+            </h5>
+
+            <small>
+
+                Watching Security Logs
+
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="dashboard-card danger-card">
+
+            <div class="card-header">
+
+                <i class="bi bi-shield-lock"></i>
+
+                <h6>Threat Level</h6>
+
+            </div>
+
+            <h5 class="text-danger">
+
+                Medium
+
+            </h5>
+
+            <small>
+
+                Active Monitoring
+
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
 
     <!-- ==========================
               Quick Actions
@@ -667,16 +767,11 @@ Dashboard
 
 
 
-            <tbody>
+            <tbody id="incidentTableBody">
 
+    {% if incidents %}
 
-
-            {% if incidents %}
-
-
-
-                {% for incident in incidents %}
-
+        {% for incident in incidents %}
 
 
 

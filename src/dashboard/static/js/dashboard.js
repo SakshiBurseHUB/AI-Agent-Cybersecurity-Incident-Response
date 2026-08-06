@@ -250,48 +250,118 @@ async function refreshDashboard(){
 
     try{
 
-        const response =
-            await fetch("/dashboard-data");
+        const response = await fetch("/dashboard-data");
 
-        const data =
-            await response.json();
+        const data = await response.json();
 
-        document.getElementById(
-            "totalIncidents"
-        ).innerText =
+        // -----------------------------
+        // Update Dashboard Cards
+        // -----------------------------
+
+        document.getElementById("totalIncidents").innerText =
             data.stats.total_incidents;
 
-        document.getElementById(
-            "openIncidents"
-        ).innerText =
+        document.getElementById("openIncidents").innerText =
             data.stats.open_incidents;
 
-        document.getElementById(
-            "highSeverity"
-        ).innerText =
+        document.getElementById("highSeverity").innerText =
             data.stats.high_severity;
 
-        document.getElementById(
-            "criticalRisk"
-        ).innerText =
+        document.getElementById("criticalRisk").innerText =
             data.stats.critical_risk;
+
+        // -----------------------------
+        // Update Incident Table
+        // -----------------------------
+
+        const table =
+            document.getElementById("incidentTableBody");
+
+        table.innerHTML = "";
+
+        data.incidents.forEach(incident => {
+
+            let severityBadge = "";
+            let statusBadge = "";
+
+            if(incident[3] === "High"){
+
+                severityBadge =
+                    '<span class="badge bg-danger">High</span>';
+
+            }
+
+            else if(incident[3] === "Medium"){
+
+                severityBadge =
+                    '<span class="badge bg-warning text-dark">Medium</span>';
+
+            }
+
+            else{
+
+                severityBadge =
+                    '<span class="badge bg-success">Low</span>';
+
+            }
+
+            if(incident[7] === "Open"){
+
+                statusBadge =
+                    '<span class="badge bg-primary">Open</span>';
+
+            }
+
+            else if(incident[7] === "Resolved"){
+
+                statusBadge =
+                    '<span class="badge bg-success">Resolved</span>';
+
+            }
+
+            else{
+
+                statusBadge =
+                    `<span class="badge bg-secondary">
+                        ${incident[7]}
+                    </span>`;
+
+            }
+
+            table.innerHTML += `
+
+            <tr>
+
+                <td>${incident[0]}</td>
+
+                <td>${incident[1]}</td>
+
+                <td>${incident[2]}</td>
+
+                <td>${severityBadge}</td>
+
+                <td>${incident[4]}</td>
+
+                <td>${incident[5]}</td>
+
+                <td>${statusBadge}</td>
+
+            </tr>
+
+            `;
+
+        });
 
     }
 
     catch(error){
 
-        console.log(
-            "Dashboard refresh failed."
-        );
+        console.log("Dashboard refresh failed.");
 
     }
 
 }
 
-setInterval(
+// Refresh every 30 seconds
 
-    refreshDashboard,
-
-    30000
-
-);
+setInterval(refreshDashboard,30000);
